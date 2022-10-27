@@ -38,15 +38,28 @@ function imageClick(event) {
   const lightboxImg = event.target.cloneNode(true);
   lightboxImg.src = event.target.getAttribute("data-source");
   lightboxDiv.append(lightboxImg);
-  const instance = basicLightbox.create(lightboxDiv);
-  instance.show(closeLightbox(instance));
+  const instance = basicLightbox.create(lightboxDiv, {
+    onShow: (instance) => {
+      closeLightbox(instance);
+    },
+  });
+  instance.show();
 }
 
 function closeLightbox(lightbox) {
-  window.onkeydown = function (e) {
-    if (e.keyCode === 27 && lightbox.visible() === true) {
-      lightbox.close();
-      console.log("close lightbox");
+  window.onkeydown = function (evt) {
+    if (lightbox.visible() === true) {
+      evt = evt || window.event;
+      var isEscape = false;
+      if ("key" in evt) {
+        isEscape = evt.key === "Escape" || evt.key === "Esc";
+      } else {
+        isEscape = evt.keyCode === 27;
+      }
+      if (isEscape) {
+        lightbox.close();
+        console.log("instance close");
+      }
     }
   };
 }
