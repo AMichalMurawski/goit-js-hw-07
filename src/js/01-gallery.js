@@ -1,13 +1,8 @@
 import { galleryItems } from "./gallery-items.js";
-// Change code below this line
-// console.log("gallery:", galleryItems);
 
 const galleryParent = document.querySelector(".gallery");
-// console.log(galleryParent);
 const markupGallery = addImageToMarkupGallery(galleryItems);
-// console.log(markupGallery);
 const galleryHtml = addGalleryToHtml(markupGallery, galleryParent);
-// console.log(galleryHtml);
 galleryParent.addEventListener("click", imageClick);
 
 function addImageToMarkupGallery(imagesTable) {
@@ -44,26 +39,14 @@ function imageClick(event) {
   lightboxImg.src = event.target.getAttribute("data-source");
   lightboxDiv.append(lightboxImg);
   const instance = basicLightbox.create(lightboxDiv);
-  instance.show(
-    (window.onkeydown = function (e) {
-      if (e.keyCode === 27 && instance.visible() === true) {
-        instance.close();
-        console.log("close instance");
-      }
-    })
-  );
+  instance.show(closeLightbox(instance));
 }
 
-// onShow: (instance) => {
-//   document.onkeydown = function (e) {
-//     if (e.keyCode === 27) {
-//       instance.close();
-//     }
-//     console.log("close instance");
-//   };
-// };
-
-// window.onkeydown = function (e) {
-//   if (e.keyCode === 27) { instance.close()
-//   }
-// };
+function closeLightbox(lightbox) {
+  window.onkeydown = function (e) {
+    if (e.keyCode === 27 && lightbox.visible() === true) {
+      lightbox.close();
+      console.log("close lightbox");
+    }
+  };
+}
