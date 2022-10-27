@@ -9,7 +9,6 @@ const markupGallery = addImageToMarkupGallery(galleryItems);
 const galleryHtml = addGalleryToHtml(markupGallery, galleryParent);
 // console.log(galleryHtml);
 galleryParent.addEventListener("click", imageClick);
-let instance;
 
 function addImageToMarkupGallery(imagesTable) {
   return imagesTable
@@ -44,22 +43,22 @@ function imageClick(event) {
   const lightboxImg = event.target.cloneNode(true);
   lightboxImg.src = event.target.getAttribute("data-source");
   lightboxDiv.append(lightboxImg);
-  instance = basicLightbox.create(lightboxDiv);
+  const instance = basicLightbox.create(lightboxDiv);
   instance.show();
 }
 
-instance.onShow: (instance) => {
-	// Close when hitting escape.
-	document.onkeydown = function(evt) {
-		evt = evt || window.event;
-		var isEscape = false;
-		if ( "key" in evt ) {
-			isEscape = ( evt.key === "Escape" || evt.key === "Esc" );
-		} else {
-			isEscape = ( evt.keyCode === 27 );
-		}
-		if ( isEscape ) {
-			instance.close();
-		}
-	};
-},
+// onShow: (instance) => {
+// 	// Close when hitting escape.
+// 	document.onkeydown = function(evt) {
+// 		evt = evt || window.event;
+// 		var isEscape = false;
+// 		if ( "key" in evt ) {
+// 			isEscape = ( evt.key === "Escape" || evt.key === "Esc" );
+// 		} else {
+// 			isEscape = ( evt.keyCode === 27 );
+// 		}
+// 		if ( isEscape ) {
+// 			instance.close();
+// 		}
+// 	};
+// },
