@@ -44,21 +44,26 @@ function imageClick(event) {
   lightboxImg.src = event.target.getAttribute("data-source");
   lightboxDiv.append(lightboxImg);
   const instance = basicLightbox.create(lightboxDiv);
-  instance.show();
+  instance.show(
+    (window.onkeydown = function (e) {
+      if (e.keyCode === 27 && instance.visible() === true) {
+        instance.close();
+        console.log("close instance");
+      }
+    })
+  );
 }
 
 // onShow: (instance) => {
-// 	// Close when hitting escape.
-// 	document.onkeydown = function(evt) {
-// 		evt = evt || window.event;
-// 		var isEscape = false;
-// 		if ( "key" in evt ) {
-// 			isEscape = ( evt.key === "Escape" || evt.key === "Esc" );
-// 		} else {
-// 			isEscape = ( evt.keyCode === 27 );
-// 		}
-// 		if ( isEscape ) {
-// 			instance.close();
-// 		}
-// 	};
-// },
+//   document.onkeydown = function (e) {
+//     if (e.keyCode === 27) {
+//       instance.close();
+//     }
+//     console.log("close instance");
+//   };
+// };
+
+// window.onkeydown = function (e) {
+//   if (e.keyCode === 27) { instance.close()
+//   }
+// };
