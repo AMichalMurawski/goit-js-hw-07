@@ -3,22 +3,20 @@ import { galleryItems } from "./gallery-items.js";
 const galleryParent = document.querySelector(".gallery");
 const markupGallery = addImageToMarkupGallery(galleryItems);
 const galleryHtml = addGalleryToHtml(markupGallery, galleryParent);
-galleryParent.addEventListener("click", imageClick);
+galleryParent.addEventListener("click", resetDownloadFunction);
+const lightboxGallery = createNewSimpleLightbox(".gallery a");
 
 function addImageToMarkupGallery(imagesTable) {
   return imagesTable
     .map(
       (image) =>
-        `<div class="gallery__item">
-            <a class="gallery__link" href="${image.original}">
-                <img
-                   class="gallery__image"
-                   src="${image.preview}"
-                   data-source="${image.original}"
-                   alt="${image.description}"
-                />
-            </a>
-        </div>`
+        `<a class="gallery__item" href="${image.original}">
+            <img
+                class="gallery__image"
+                src="${image.preview}"
+                alt="${image.description}"
+            />
+        </a>`
     )
     .join("\r\n");
 }
@@ -27,10 +25,13 @@ function addGalleryToHtml(gallery, htmlElement) {
   htmlElement.innerHTML = gallery;
 }
 
-function imageClick(event) {
+function resetDownloadFunction(event) {
   event.preventDefault();
+}
 
-  if (event.target.nodeName !== "IMG") {
-    return;
-  }
+function createNewSimpleLightbox(className) {
+  return new SimpleLightbox(className, {
+    captionsData: "alt",
+    captionDelay: 250,
+  });
 }
