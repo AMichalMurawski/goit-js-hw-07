@@ -9,6 +9,7 @@ const markupGallery = addImageToMarkupGallery(galleryItems);
 const galleryHtml = addGalleryToHtml(markupGallery, galleryParent);
 // console.log(galleryHtml);
 galleryParent.addEventListener("click", imageClick);
+let instance;
 
 function addImageToMarkupGallery(imagesTable) {
   return imagesTable
@@ -43,11 +44,11 @@ function imageClick(event) {
   const lightboxImg = event.target.cloneNode(true);
   lightboxImg.src = event.target.getAttribute("data-source");
   lightboxDiv.append(lightboxImg);
-  const instance = basicLightbox.create(lightboxDiv);
+  instance = basicLightbox.create(lightboxDiv);
   instance.show();
 }
 
-onShow: (instance) => {
+instance.onShow: (instance) => {
 	// Close when hitting escape.
 	document.onkeydown = function(evt) {
 		evt = evt || window.event;
